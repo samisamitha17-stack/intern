@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background: #121212;
+    color: white;
+}
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #000;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #1DB954;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 10px 0;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+.songs {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: #181818;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 180px;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}

@@ -1,0 +1,112 @@
+/*user profile page*/
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#4e54c8,#8f94fb);
+    margin: 0;
+    padding: 20px;
+}
+
+.profile-container{
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.profile-header{
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.profile-header img{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-header h2{
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.profile-header p{
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.profile-details{
+    padding: 30px;
+}
+
+.info-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9ff;
+    margin: 15px 0;
+    padding: 15px 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.info-box:hover{
+    transform: translateY(-3px);
+    background: #eef1ff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.info-title{
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value{
+    color: #333;
+    font-weight: bold;
+}
+
+.books-issued{
+    background: linear-gradient(135deg,#36d1dc,#5b86e5);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+.books-issued h3{
+    margin: 0;
+    font-size: 20px;
+}
+
+.books-issued span{
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.edit-btn{
+    display: block;
+    width: 200px;
+    margin: 25px auto;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn:hover{
+    background: #764ba2;
+    transform: scale(1.05);
+}

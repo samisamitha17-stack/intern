@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Digital Library</title>
+    <link rel="stylesheet" href="FAQ page-style.css">
+</head>
+<body>
+
+    <div class="faq-container">
+        <h1>📚 Frequently Asked Questions</h1>
+        <p class="subtitle">Find answers to common library questions</p>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                How do I borrow books? <span>+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Login to your account, search for a book, and click the "Borrow" button.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                How do I return books? <span>+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Go to "My Books" and click the "Return" button for the borrowed book.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                How do I search for books? <span>+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Use the search bar on the homepage and enter the title, author, or category.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                Can I renew borrowed books? <span>+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Yes, you can renew books from the "My Books" section if no one else has reserved them.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                What happens if I return a book late? <span>+</span>
+            </button>
+            <div class="faq-answer">
+                <p>A small late fee may be charged depending on the library policy.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll(".faq-question");
+
+        questions.forEach(question => {
+            question.addEventListener("click", () => {
+                const answer = question.nextElementSibling;
+
+                if (answer.style.display === "block") {
+                    answer.style.display = "none";
+                } else {
+                    answer.style.display = "block";
+                }
+            });
+        });
+    </script>
+<a href="about.html" class="btn">
+    go to about us page
+</a>
+</div>
+</body>
+</html>

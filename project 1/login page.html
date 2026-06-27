@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login page-style.css">
+</head>
+<body>
+
+<div class="login-box">
+    <h1>Digital Library</h1>
+
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <br><br>
+
+        <input type="password" id="password" placeholder="Password" required>
+        <br><br>
+
+        <!-- Remove <a> tag, use type="submit" button only -->
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // stop form from going to user_page.html
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    
+    if(username === '' || password === '') {
+        alert('Please enter both username and password');
+        return;
+    }
+    
+    // Save username for next page
+    localStorage.setItem('user', username);
+    
+    // After validation, open categories page
+    window.location.href = 'categories page.html';
+});
+</script>
+
+</body>
+</html>
