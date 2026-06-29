@@ -6,16 +6,18 @@
 }
 
 body{
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    min-height:100vh;
+     background:linear-gradient(135deg,#667eea,#764ba2);
+    margin:0;
+    padding:0;
 }
 
+
 .about-container{
-    width:85%;
-    max-width:1100px;
-    margin:50px auto;
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
     background:#fff;
-    padding:40px;
+    padding:30px;
     border-radius:20px;
     box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
@@ -63,10 +65,18 @@ body{
 }
 
 .stats{
+    text-align:center;
+    margin-top:40px;
+}
+
+.stats h2{
+    color:#4a148c;
+    margin-bottom:20px;
+}
+.stat-container{
     display:flex;
     justify-content:center;
     gap:30px;
-    margin-top:40px;
     flex-wrap:wrap;
 }
 
@@ -83,7 +93,7 @@ body{
 }
 
 .team{
-    margin-top:50px;
+    margin-top:30px;
     text-align:center;
 }
 
@@ -92,11 +102,13 @@ body{
     color:#4a148c;
 }
 
-.members{
+.team-container{
     display:flex;
     justify-content:center;
-    gap:20px;
+    align-items: flex-start;
+    gap:25px;
     flex-wrap:wrap;
+    margin-top: 30px;
 }
 
 .member{
@@ -117,4 +129,39 @@ body{
     height:100px;
     border-radius:50%;
     margin-bottom:10px;
+}
+
+
+
+.about{
+    width:90%;
+    max-width:1100px;
+    margin:40px auto;
+}
+
+.about .card{
+    background:white;
+    padding:30px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+.btn{
+    display:block;
+    width:180px;
+    margin:30px auto;
+    padding:12px 20px;
+    text-align:center;
+    text-decoration:none;
+    background:#4a148c;
+    color:white;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#6a1b9a;
+    transform:translateY(-3px);
 }

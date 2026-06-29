@@ -1,45 +1,183 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Page</title>
-    <link rel="stylesheet" href="feedback page-style.css">
+    <title>Library Feedback</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .feedback-container {
+            background: white;
+            width: 90%;
+            max-width: 550px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        h1 { color: #0f172a; margin: 0 0 8px 0; }
+        p { color: #475569; margin-bottom: 30px; }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 18px 0 8px 0;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #0ea5e9;
+        }
+        .stars {
+            font-size: 2rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            user-select: none;
+        }
+        .stars .star.active, .stars .star:hover {
+            color: #facc15;
+        }
+        .submit-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        .success-msg {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-
     <div class="feedback-container">
         <h1>📚 Library Feedback</h1>
-        <p class="subtitle">We value your feedback. Help us improve our Digital Library.</p>
-
-        <form>
-            <div class="input-group">
-                <label>Name</label>
-                <input type="text" placeholder="Enter your name">
+        <p>We value your feedback. Help us improve our Digital Library.</p>
+        
+        <form id="feedbackForm">
+            <label>Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+            
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            
+            <label>Rate Our Library</label>
+            <div class="stars" id="starRating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
             </div>
-
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" placeholder="Enter your email">
-            </div>
-
-            <div class="rating">
-                <label>Rate Our Library</label>
-                <div class="stars">
-                    ★★★★★
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label>Your Feedback</label>
-                <textarea rows="5" placeholder="Write your feedback here..."></textarea>
-            </div>
-
-            <button type="submit">Submit Feedback</button>
+            <input type="hidden" id="rating" value="0">
+            
+            <label>Your Feedback</label>
+            <textarea id="message" rows="4" placeholder="Write your feedback here" required></textarea>
+            
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+            
+        
+    </a>
         </form>
+        <a href="FAQ page.html"class="faq-link">view FAQ</a>
+        <div class="success-msg" id="successMsg">
+            ✅ Thank you! Your feedback has been submitted.
+        </div>
+        
     </div>
-<a href="FAQ page.html">
-    <button>view FAQ</button>
-</a>
+
+
+    <script>
+        // 1. Star rating logic
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                let value = star.getAttribute('data-value');
+                ratingInput.value = value;
+                
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // 2. Form submit logic
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page reload
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const rating = document.getElementById('rating').value;
+            const message = document.getElementById('message').value;
+            
+            if (rating == 0) {
+                alert('Please select a star rating');
+                return;
+            }
+            
+            // Create feedback object
+            const feedback = {
+                name: name,
+                email: email,
+                rating: rating,
+                message: message,
+                date: new Date().toLocaleString()
+            };
+            
+            // Save to localStorage - check in DevTools > Application > Local Storage
+            let allFeedback = JSON.parse(localStorage.getItem('libraryFeedback')) || [];
+            allFeedback.push(feedback);
+            localStorage.setItem('libraryFeedback', JSON.stringify(allFeedback));
+            
+            // Show success message
+            document.getElementById('successMsg').style.display = 'block';
+            document.getElementById('feedbackForm').reset();
+            stars.forEach(s => s.classList.remove('active'));
+            ratingInput.value = 0;
+            
+            // Hide message after 3 sec
+            setTimeout(() => {
+                document.getElementById('successMsg').style.display = 'none';
+            }, 3000);
+            
+            console.log('Feedback saved:', feedback);
+        });
+    </script>
 </body>
 </html>
+

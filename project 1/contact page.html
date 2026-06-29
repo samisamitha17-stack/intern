@@ -5,50 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Digital Library</title>
     <link rel="stylesheet" href="contact page-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="contact-container">
-
+    <a href="admin dashboard.html" class="admin-btn">Admin Dashboard</a>
+    
+    <div class="contact-wrapper">
         <div class="contact-info">
             <h1>📚 Contact Us</h1>
             <p>We are here to help you with your Digital Library needs.</p>
-
-            <div class="info-box">
-                <h3>📍 Address</h3>
-                <p>123 Library Street, ooty, Tamil Nadu</p>
+            
+            <div class="info-item">
+                <span class="icon">📍</span>
+                <div>
+                    <h3>Address</h3>
+                    <p>123 Library Street, ooty, Tamil Nadu</p>
+                </div>
             </div>
-
-            <div class="info-box">
-                <h3>📞 Phone</h3>
-                <p>+91 9514545116</p>
+            
+            <div class="info-item">
+                <span class="icon">📞</span>
+                <div>
+                    <h3>Phone</h3>
+                    <p>+91 9514545116</p>
+                </div>
             </div>
-
-            <div class="info-box">
-                <h3>✉ Email</h3>
-                <p>sam library@gmail.com</p>
+            
+            <div class="info-item">
+                <span class="icon">✉️</span>
+                <div>
+                    <h3>Email</h3>
+                    <p>sam library@gmail.com</p>
+                </div>
             </div>
         </div>
 
         <div class="contact-form">
             <h2>Send Message</h2>
-
-            <form>
-                <input type="text" placeholder="Your Name" required>
-
-                <input type="email" placeholder="Your Email" required>
-
-                <input type="text" placeholder="Subject" required>
-
-                <textarea rows="5" placeholder="Your Message"></textarea>
-
-                <button type="submit">Send Message</button>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="text" id="subject" placeholder="Subject" required>
+                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="send-btn">Send Message</button>
             </form>
+            
+            <div class="success-msg" id="successMsg">
+                ✅ Message sent successfully! We'll get back to you soon.
+            </div>
         </div>
-
     </div>
-<a href="admin dashboard.html"class="admin-btn">
-    go to admin dashboard
-</a>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            const contactData = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message,
+                date: new Date().toLocaleString('en-IN')
+            };
+            
+            // Save to localStorage
+            let allMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+            allMessages.push(contactData);
+            localStorage.setItem('contactMessages', JSON.stringify(allMessages));
+            
+            // Show success
+            document.getElementById('successMsg').style.display = 'block';
+            document.getElementById('contactForm').reset();
+            
+            setTimeout(() => {
+                document.getElementById('successMsg').style.display = 'none';
+            }, 3000);
+            
+            console.log('Message saved:', contactData);
+        });
+    </script>
 </body>
 </html>

@@ -3,71 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Digital Library</title>
     <link rel="stylesheet" href="admin dashboard-style.css">
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">📚 Library Admin</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active" data-page="dashboard">🏠 Dashboard</a>
+                <a href="#" class="nav-link" data-page="students">👥 Students</a>
+                <a href="#" class="nav-link" data-page="books">📖 Books</a>
+                <a href="#" class="nav-link" data-page="issued">📤 Issued Books</a>
+                <a href="#" class="nav-link" data-page="returned">📥 Returned Books</a>
+                <a href="#" class="nav-link" data-page="settings">⚙️ Settings</a>
+            </nav>
+        </aside>
 
-    <div class="dashboard">
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1 id="pageTitle">Admin Dashboard</h1>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </header>
 
-        <div class="sidebar">
-            <h2>📚 Library Admin</h2>
-
-            <ul>
-                <li><i class="fas fa-home"></i> Dashboard</li>
-                <li><i class="fas fa-users"></i> Students</li>
-                <li><i class="fas fa-book"></i> Books</li>
-                <li><i class="fas fa-book-reader"></i> Issued Books</li>
-                <li><i class="fas fa-undo"></i> Returned Books</li>
-                <li><i class="fas fa-cog"></i> Settings</li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-
-            <div class="header">
-                <h1>Admin Dashboard</h1>
-                <button class="logout">Logout</button>
-            </div>
-
-            <div class="cards">
-
-                <div class="card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h2>250</h2>
-                    <p>Total Students</p>
+            <!-- Dashboard Page -->
+            <section class="page active" id="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎓</div>
+                        <h2 id="totalStudents">250</h2>
+                        <p>Total Students</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <h2 id="totalBooks">1200</h2>
+                        <p>Total Books</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📤</div>
+                        <h2 id="issuedBooks">320</h2>
+                        <p>Issued Books</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <h2 id="returnedBooks">280</h2>
+                        <p>Returned Books</p>
+                    </div>
                 </div>
 
-                <div class="card">
-                    <i class="fas fa-book"></i>
-                    <h2>1200</h2>
-                    <p>Total Books</p>
+                <div class="action-buttons">
+                    <button class="add-btn" onclick="openAddModal()">➕ Add Book</button>
+                    <button class="delete-btn" onclick="openDeleteModal()">🗑️ Delete Book</button>
                 </div>
 
-                <div class="card">
-                    <i class="fas fa-book-reader"></i>
-                    <h2>320</h2>
-                    <p>Issued Books</p>
+                <div class="table-container">
+                    <h3>Recent Books</h3>
+                    <table id="booksTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Book Name</th>
+                                <th>Author</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="booksTableBody"></tbody>
+                    </table>
                 </div>
+            </section>
 
-                <div class="card">
-                    <i class="fas fa-check-circle"></i>
-                    <h2>280</h2>
-                    <p>Returned Books</p>
-                </div>
-
-            </div>
-
-            <div class="actions">
-                <button class="add-btn">➕ Add Book</button>
-                <button class="delete-btn">🗑 Delete Book</button>
-            </div>
-
-        </div>
-
+            <!-- Other Pages -->
+            <section class="page" id="students"><h2>Students List</h2><p>Student management coming soon...</p></section>
+            <section class="page" id="books"><h2>All Books</h2><p>Book management coming soon...</p></section>
+            <section class="page" id="issued"><h2>Issued Books</h2><p>Issued books list coming soon...</p></section>
+            <section class="page" id="returned"><h2>Returned Books</h2><p>Returned books list coming soon...</p></section>
+            <section class="page" id="settings"><h2>Settings</h2><p>Settings panel coming soon...</p></section>
+        </main>
     </div>
 
+    <!-- Add Book Modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addModal')">&times;</span>
+            <h2>Add New Book</h2>
+            <input type="text" id="bookName" placeholder="Book Name" required>
+            <input type="text" id="bookAuthor" placeholder="Author Name" required>
+            <button onclick="addBook()">Add Book</button>
+        </div>
+    </div>
+
+    <!-- Delete Book Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('deleteModal')">&times;</span>
+            <h2>Delete Book</h2>
+            <input type="number" id="deleteId" placeholder="Enter Book ID" required>
+            <button onclick="deleteBook()" class="delete-confirm">Delete</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize default data
+        if (!localStorage.getItem('libraryStats')) {
+            localStorage.setItem('libraryStats', JSON.stringify({
+                totalStudents: 250,
+                totalBooks: 1200,
+                issuedBooks: 320,
+                returnedBooks: 280
+            }));
+        }
+        if (!localStorage.getItem('booksList')) {
+            localStorage.setItem('booksList', JSON.stringify([
+                {id: 1, name: 'Web Development', author: 'John Doe', status: 'Available'},
+                {id: 2, name: 'Python Basics', author: 'Jane Smith', status: 'Issued'},
+                {id: 3, name: 'Data Science', author: 'Alex Kumar', status: 'Available'}
+            ]));
+        }
+
+        // Load stats and table on page load
+        loadStats();
+        loadBooksTable();
+
+        // Sidebar navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                
+                this.classList.add('active');
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+                document.getElementById('pageTitle').textContent = this.textContent.trim();
+            });
+        });
+
+        function loadStats() {
+            const stats = JSON.parse(localStorage.getItem('libraryStats'));
+            document.getElementById('totalStudents').textContent = stats.totalStudents;
+            document.getElementById('totalBooks').textContent = stats.totalBooks;
+            document.getElementById('issuedBooks').textContent = stats.issuedBooks;
+            document.getElementById('returnedBooks').textContent = stats.returnedBooks;
+        }
+
+        function loadBooksTable() {
+            const books = JSON.parse(localStorage.getItem('booksList'));
+            const tbody = document.getElementById('booksTableBody');
+            tbody.innerHTML = '';
+            books.forEach(book => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${book.id}</td>
+                        <td>${book.name}</td>
+                        <td>${book.author}</td>
+                        <td><span class="status ${book.status.toLowerCase()}">${book.status}</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'flex';
+        }
+
+        function openDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function addBook() {
+            const name = document.getElementById('bookName').value.trim();
+            const author = document.getElementById('bookAuthor').value.trim();
+            
+            if (!name || !author) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            let books = JSON.parse(localStorage.getItem('booksList'));
+            let stats = JSON.parse(localStorage.getItem('libraryStats'));
+            
+            const newId = books.length ? Math.max(...books.map(b => b.id)) + 1 : 1;
+            books.push({id: newId, name: name, author: author, status: 'Available'});
+            stats.totalBooks++;
+            
+            localStorage.setItem('booksList', JSON.stringify(books));
+            localStorage.setItem('libraryStats', JSON.stringify(stats));
+            
+            loadStats();
+            loadBooksTable();
+            closeModal('addModal');
+            document.getElementById('bookName').value = '';
+            document.getElementById('bookAuthor').value = '';
+        }
+
+        function deleteBook() {
+            const id = parseInt(document.getElementById('deleteId').value);
+            let books = JSON.parse(localStorage.getItem('booksList'));
+            let stats = JSON.parse(localStorage.getItem('libraryStats'));
+            
+            const index = books.findIndex(b => b.id === id);
+            if (index === -1) {
+                alert('Book ID not found');
+                return;
+            }
+            
+            books.splice(index, 1);
+            stats.totalBooks--;
+            
+            localStorage.setItem('booksList', JSON.stringify(books));
+            localStorage.setItem('libraryStats', JSON.stringify(stats));
+            
+            loadStats();
+            loadBooksTable();
+            closeModal('deleteModal');
+            document.getElementById('deleteId').value = '';
+        }
+
+        function logout() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login page.html';
+            }
+        }
+
+        // Close modal on outside click
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

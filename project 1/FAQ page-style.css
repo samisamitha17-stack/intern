@@ -82,3 +82,23 @@ body{
         font-size:18px;
     }
 }
+.next-btn{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.next-btn a{
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.next-btn a:hover{
+    background: #0056b3;
+}
